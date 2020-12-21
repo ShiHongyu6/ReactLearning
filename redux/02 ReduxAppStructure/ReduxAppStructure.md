@@ -305,6 +305,20 @@ function reducer(state = initialState, action) {
 它是一个`action`的工厂(`creator`)。  
 
 ```javascript
+/*
+reducers: {
+  increment: state => {
+    state.value += 1
+  },
+  decrement: state => {
+    state.value -= 1
+  },
+  incrementByAmount: (state, action) => {
+    state.value += action.payload
+  }
+}
+*/
+
 console.log(counterSlice.actions.increment())
 // {type: "counter/increment"}
 ```
@@ -345,10 +359,13 @@ dispatch(increment()) //使用
 export const selectCount = state => state.counter.value
 ```
 
-通过selector获取数据
+通过`useSelector`获取数据`state`中的数据
 ```javascript
 const count = useSelector(selectCount)
 ```
+
+> Any time an action has been dispatched and the Redux store has been updated, useSelector will re-run our selector function. If the selector returns a different value than last time, useSelector will make sure our component re-renders with the new value.
+
 
 
 ### 使用Thunk编写异步逻辑    
