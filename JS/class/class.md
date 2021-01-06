@@ -140,4 +140,8 @@ class B extends A {
 console.log(B.prop_static);// 3
 ```
 
-### 构造函数、HomeObject和super()  
+### 构造函数、HomeObject和super()
+
+1. super作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次super函数。  
+2. super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。  
+

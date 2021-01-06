@@ -146,6 +146,20 @@ let myObj:LabeledValue = { size: 10, label: "Size 10 Object" };
 //Type '{ size: number; label: string; }' is not assignable to type 'LabeledValue'. Object literal may only specify known properties, and 'size' does not exist in type 'LabeledValue'.
 ```
 
+这样的错误只发生在使用对象字面量给有类型的变量赋值时才会发生。如果使用另一个变量赋值，类型检查就会变为判断属性高是否存在。
+
+
+```ts
+interface Named {
+    name: string;
+}
+
+let x: Named;
+let y = { name: 'Alice', location: 'Seattle' };
+x = y;
+//Ok
+```
+
 如果需要给某一个接口的实例添加额外属性，希望编译器不报错，该怎么办呢？
 
 #### 通过类型断言（类型转换）消除类型检查错误  

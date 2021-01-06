@@ -238,7 +238,7 @@ create(undefined);
 Argument of type 'undefined' is not assignable to parameter of type 'object | null'.
 ```
 
-### Type assertions(as 类型给断言)  
+### Type assertions(as 类型断言)  
 
 类型断言更像是一种类型转换。**不会影响运行时，仅被编译器使用**  
 
@@ -253,3 +253,4 @@ let strLength: number = (someValue as string).length;
 let strLength: number = (<string>someValue).length;
 
 ```
+

@@ -129,3 +129,47 @@ createCardPicker = function (this: Deck) {
       return { suit: this.suits[pickedSuit], card: pickedCard % 13 };
     };
 ```
+
+### Overload  
+
+看下面这个函数：
+```ts
+function pickCard(x: any): any {
+  // Check to see if we're working with an object/array
+  // if so, they gave us the deck and we'll pick the card
+  if (typeof x == "object") {
+    let pickedCard = Math.floor(Math.random() * x.length);
+    return pickedCard;
+  }
+  // Otherwise just let them pick the card
+  else if (typeof x == "number") {
+    let pickedSuit = Math.floor(x / 13);
+    return { suit: suits[pickedSuit], card: x % 13 };
+  }
+}
+```
+
+通过传入函数不同类型的参数，进入不同的分支，返回不同类型的值，这样来模拟函数的重载。但是有一个问题：**没有做类型检查**，可以看到，`pickCard`的参数和返回值类型都是`any`，没有类型检查。  
+
+
+想要做类型检查，就要告知TS编译器，传入的参数类型和返回值类型的对应关系。  
+
+```ts
+function pickCard(x: { suit: string; card: number }[]): number;
+function pickCard(x: number): { suit: string; card: number };
+function pickCard(x: any): any {
+  // Check to see if we're working with an object/array
+  // if so, they gave us the deck and we'll pick the card
+  if (typeof x == "object") {
+    let pickedCard = Math.floor(Math.random() * x.length);
+    return pickedCard;
+  }
+  // Otherwise just let them pick the card
+  else if (typeof x == "number") {
+    let pickedSuit = Math.floor(x / 13);
+    return { suit: suits[pickedSuit], card: x % 13 };
+  }
+}
+```
+
+函数的主题不用变，多加了两条函数声明，这两条函数声明就是指出传入参数的类型以及对应的返回值类型，这样编译器就可以做类型检查。
